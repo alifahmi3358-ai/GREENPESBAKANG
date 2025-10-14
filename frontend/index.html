@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GREENPES BAKANG - Platform Edukasi & Komunitas Pemuda</title>
+    <!-- CDN untuk Font Awesome dan Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- File CSS lokal -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-container">
+                <a href="#" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="logo-text">GREENPES BAKANG</div>
+                </a>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="#" class="nav-link">Beranda</a></li>
+                    <li class="nav-item"><a href="#fitur" class="nav-link">Fitur</a></li>
+                    <li class="nav-item"><a href="#chat" class="nav-link">Chat Global</a></li>
+                    <li class="nav-item"><a href="#kontak" class="nav-link">Kontak</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <button id="loginBtn" class="btn btn-primary">Login</button>
+                    <button id="registerBtn" class="btn btn-secondary">Daftar</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Masuk ke GREENPES BAKANG</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="login-options">
+                    <button class="btn btn-google">
+                        <i class="fab fa-google"></i>
+                        Lanjutkan dengan Google
+                    </button>
+                    <button class="btn btn-outline">
+                        <i class="fas fa-envelope"></i>
+                        Lanjutkan dengan Email
+                    </button>
+                </div>
+                
+                <div class="divider">
+                    <div class="divider-line"></div>
+                    <div class="divider-text">atau</div>
+                    <div class="divider-line"></div>
+                </div>
+                
+                <form id="emailLoginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" class="form-control" placeholder="Masukkan email Anda" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" class="form-control" placeholder="Masukkan password Anda" required>
+                    </div>
+                    
+                    <div class="form-footer">
+                        <label class="remember-me">
+                            <input type="checkbox"> Ingat saya
+                        </label>
+                        <a href="#" class="forgot-password">Lupa password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Masuk</button>
+                </form>
+                
+                <div style="text-align: center; margin-top: 25px; font-size: 0.95rem; color: #64748b;">
+                    Belum punya akun? <a href="#" id="showRegisterFromLogin" style="color: var(--primary); font-weight: 600; text-decoration: none;">Daftar sekarang</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Daftar Akun Baru</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="registerName">Nama Lengkap</label>
+                        <input type="text" id="registerName" class="form-control" placeholder="Masukkan nama lengkap Anda" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="registerEmail">Email</label>
+                        <input type="email" id="registerEmail" class="form-control" placeholder="Masukkan email Anda" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="registerPassword">Password</label>
+                        <input type="password" id="registerPassword" class="form-control" placeholder="Minimal 6 karakter" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="registerConfirmPassword">Konfirmasi Password</label>
+                        <input type="password" id="registerConfirmPassword" class="form-control" placeholder="Ketik ulang password Anda" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Daftar</button>
+                </form>
+                
+                <div style="text-align: center; margin-top: 25px; font-size: 0.95rem; color: #64748b;">
+                    Sudah punya akun? <a href="#" id="showLoginFromRegister" style="color: var(--primary); font-weight: 600; text-decoration: none;">Login di sini</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-star"></i> Platform Edukasi Terdepan untuk Pemuda Indonesia
+                </div>
+                <h1 class="hero-title">Wujudkan Potensi Pemuda Indonesia</h1>
+                <p class="hero-subtitle">Platform edukasi komprehensif yang menggabungkan pembelajaran terstruktur, komunitas aktif, dan teknologi AI untuk mengembangkan generasi pemuda unggul.</p>
+                
+                <div class="hero-buttons">
+                    <button id="heroLoginBtn" class="btn btn-primary">Mulai Sekarang</button>
+                    <a href="#fitur" class="btn btn-outline">Jelajahi Fitur</a>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">15K+</div>
+                        <div class="stat-label">Anggota Aktif</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">250+</div>
+                        <div class="stat-label">Kelas Tersedia</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">4.9/5</div>
+                        <div class="stat-label">Rating Pengguna</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="fitur" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">5 Fitur Utama Platform</h2>
+                <p class="section-subtitle">GREENPES BAKANG dirancang dengan fitur-fitur inovatif untuk memberikan pengalaman belajar dan berkomunitas yang holistik bagi pemuda Indonesia.</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card floating">
+                    <div class="feature-icon ai">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="feature-title">AI Asisten Cerdas</h3>
+                    <p class="feature-desc">Dapatkan bimbingan personal dari asisten AI yang memahami kebutuhan belajar Anda dengan gaya bahasa yang disesuaikan dan kemampuan membantu pembuatan karya.</p>
+                </div>
+                
+                <div class="feature-card floating" style="animation-delay: 0.2s">
+                    <div class="feature-icon education">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3 class="feature-title">Kurikulum Terstruktur</h3>
+                    <p class="feature-desc">Pelajari 7 dimensi kehidupan melalui kurikulum berlapis dengan progresi yang jelas, mulai dari Akhlak hingga Spiritual, dengan tugas nyata yang relevan.</p>
+                </div>
+                
+                <div class="feature-card floating" style="animation-delay: 0.4s">
+                    <div class="feature-icon community">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="feature-title">Komunitas Kolaboratif</h3>
+                    <p class="feature-desc">Bangun jaringan dan kolaborasi dengan komunitas pemuda berpikiran maju dari seluruh Indonesia, saling berbagi pengetahuan dan pengalaman.</p>
+                </div>
+                
+                <div class="feature-card floating" style="animation-delay: 0.6s">
+                    <div class="feature-icon debate">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="feature-title">Forum Debat Intelektual</h3>
+                    <p class="feature-desc">Kembangkan kemampuan berpikir kritis melalui debat terstruktur dalam berbagai format: 1v1, Pro-Kontra (5v5), dan Universal dengan sistem penilaian adil.</p>
+                </div>
+                
+                <div class="feature-card floating" style="animation-delay: 0.8s">
+                    <div class="feature-icon chat">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    <h3 class="feature-title">Chat Global Real-time</h3>
+                    <p class="feature-desc">Diskusi bebas dengan topik terorganisir dalam ruang chat global yang aman dengan moderasi aktif dan fitur mute/ban untuk menjaga kualitas diskusi.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chat Global Section -->
+    <section id="chat" class="chat-section">
+        <div class="container">
+            <div class="chat-container">
+                <div class="chat-info">
+                    <h2>Chat Global Real-time</h2>
+                    <p>Bergabunglah dalam diskusi aktif dengan pemuda dari seluruh Indonesia dalam berbagai topik menarik yang terorganisir dengan baik.</p>
+                    
+                    <div class="chat-features">
+                        <div class="chat-feature">
+                            <div class="chat-feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="chat-feature-text">
+                                <h3>Moderasi Aktif</h3>
+                                <p>Sistem moderasi otomatis dan manual untuk menjaga kualitas diskusi</p>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-feature">
+                            <div class="chat-feature-icon">
+                                <i class="fas fa-hashtag"></i>
+                            </div>
+                            <div class="chat-feature-text">
+                                <h3>Ruang Topik Terorganisir</h3>
+                                <p>Bergabung dalam ruang diskusi berdasarkan minat dan topik spesifik</p>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-feature">
+                            <div class="chat-feature-icon">
+                                <i class="fas fa-ban"></i>
+                            </div>
+                            <div class="chat-feature-text">
+                                <h3>Proteksi Spam</h3>
+                                <p>Sistem rate-limit dan proteksi terhadap spam serta konten tidak pantas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-preview">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="chat-message">
+                            <div class="message-content">Halo semua! Saya baru saja menyelesaikan modul Logika Deduktif. Sangat membantu!</div>
+                        </div>
+                        <div class="chat-message">
+                            <div class="message-content">Keren! Ada yang mau ikut debat besok tentang peran teknologi dalam pendidikan?</div>
+                        </div>
+                        <div class="chat-message own">
+                            <div class="message-content">Saya tertarik! Jam berapa debatnya?</div>
+                        </div>
+                        <div class="chat-message">
+                            <div class="message-content">Jam 14.00 WIB di ruang Debat Teknologi. Daftar sekarang ya!</div>
+                        </div>
+                        <div class="chat-message own">
+                            <div class="message-content">Siap! Sudah saya daftarkan. Siapa lawannya?</div>
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" placeholder="Ketik pesan Anda..." disabled>
+                        <button disabled>Kirim</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="kontak" class="contact">
+        <div class="container">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2>Kontak Admin</h2>
+                    <p>Hubungi admin kami untuk informasi lebih lanjut, kerjasama, atau pertanyaan seputar platform GREENPES BAKANG.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>Nama Admin</h3>
+                                <p>Ali Fahmi</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>WhatsApp</h3>
+                                <p><a href="https://wa.me/6282297222903">0822-9722-2903</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>Email</h3>
+                                <p><a href="mailto:alifahmi3358@gmail.com">alifahmi3358@gmail.com</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>Alamat</h3>
+                                <p>Jalan Baros Tempuran, Karawang, Jawa Barat</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Kirim Pesan</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Nama Lengkap</label>
+                            <input type="text" id="name" class="form-control" placeholder="Masukkan nama Anda" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" placeholder="Masukkan email Anda" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subjek</label>
+                            <input type="text" id="subject" class="form-control" placeholder="Subjek pesan" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Pesan</label>
+                            <textarea id="message" class="form-control" placeholder="Tulis pesan Anda di sini..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Kirim Pesan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>GREENPES BAKANG</h3>
+                    <p style="color: #94a3b8; margin: 24px 0; line-height: 1.7;">
+                        Platform edukasi komunitas pemuda yang bertujuan menciptakan generasi unggul melalui pembelajaran terstruktur dan kolaborasi intelektual.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Program</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">Kurikulum 7 Lapis</a></li>
+                        <li><a href="#" class="footer-link">Kurikulum Radikal</a></li>
+                        <li><a href="#" class="footer-link">Forum Debat</a></li>
+                        <li><a href="#" class="footer-link">AI Asisten</a></li>
+                        <li><a href="#" class="footer-link">Chat Global</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Sumber Daya</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">Panduan Pengguna</a></li>
+                        <li><a href="#" class="footer-link">Kebijakan Privasi</a></li>
+                        <li><a href="#" class="footer-link">Pedoman Komunitas</a></li>
+                        <li><a href="#" class="footer-link">FAQ</a></li>
+                        <li><a href="#" class="footer-link">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Kontak</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:alifahmi3358@gmail.com" class="footer-link">alifahmi3358@gmail.com</a></li>
+                        <li><a href="https://wa.me/6282297222903" class="footer-link">0822-9722-2903</a></li>
+                        <li><a href="#" class="footer-link">Jl. Baros Tempuran, Karawang</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 GREENPES BAKANG. Semua hak dilindungi. Platform edukasi untuk pemuda Indonesia.
+            </div>
+        </div>
+    </footer>
+
+    <!-- File JavaScript lokal -->
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - GREENPES BAKANG</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f766e;
+            --primary-dark: #0d5d56;
+            --secondary: #0891b2;
+            --secondary-dark: #0e7490;
+            --accent: #f59e0b;
+            --accent-dark: #d97706;
+            --light: #f8fafc;
+            --gray: #e2e8f0;
+            --dark: #0f172a;
+            --success: #16a34a;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #f8fafc;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Sidebar Styles */
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 24px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .sidebar-header {
+            padding: 0 24px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+
+        .logo-icon {
+            background: rgba(255, 255, 255, 0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+        }
+
+        .logo-icon i {
+            color: white;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            padding: 16px 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            margin-top: 12px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-weight: 600;
+        }
+
+        .user-details {
+            flex: 1;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .user-points {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .sidebar-menu {
+            padding: 24px 0;
+        }
+
+        .menu-item {
+            padding: 14px 24px;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-weight: 500;
+            transition: var(--transition);
+            border-left: 3px solid transparent;
+        }
+
+        .menu-item:hover,
+        .menu-item.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left: 3px solid white;
+        }
+
+        .menu-item i {
+            width: 24px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            padding: 24px 0;
+        }
+
+        .header {
+            background: white;
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 4px 14px rgba(15, 118, 110, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(15, 118, 110, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: rgba(15, 118, 110, 0.05);
+        }
+
+        /* Dashboard Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        .stat-icon.courses {
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+        }
+
+        .stat-icon.debate {
+            background: linear-gradient(135deg, #f97316, #ea580c);
+        }
+
+        .stat-icon.points {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .stat-icon.uploads {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: var(--dark);
+            opacity: 0.7;
+        }
+
+        /* Recent Activity */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray);
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .view-all {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .activity-item {
+            display: flex;
+            gap: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--gray);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .activity-icon.courses {
+            background: rgba(14, 165, 233, 0.2);
+            color: #0284c7;
+        }
+
+        .activity-icon.debate {
+            background: rgba(249, 115, 22, 0.2);
+            color: #ea580c;
+        }
+
+        .activity-icon.upload {
+            background: rgba(139, 92, 246, 0.2);
+            color: #7c3aed;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--dark);
+        }
+
+        .activity-time {
+            font-size: 0.85rem;
+            color: var(--dark);
+            opacity: 0.6;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+        }
+
+        .action-card {
+            background: white;
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid var(--gray);
+        }
+
+        .action-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .action-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 20px;
+            color: white;
+        }
+
+        .action-icon.ai {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        }
+
+        .action-icon.upload {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+        }
+
+        .action-icon.debate {
+            background: linear-gradient(135deg, #f97316, #ea580c);
+        }
+
+        .action-icon.course {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .action-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--dark);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                width: 80px;
+            }
+            
+            .sidebar-header .logo-text,
+            .user-info .user-details,
+            .menu-item span {
+                display: none;
+            }
+            
+            .logo {
+                justify-content: center;
+                margin-bottom: 30px;
+            }
+            
+            .logo-icon {
+                margin-right: 0;
+            }
+            
+            .user-info {
+                justify-content: center;
+                padding: 12px;
+            }
+            
+            .user-avatar {
+                margin-right: 0;
+            }
+            
+            .menu-item {
+                justify-content: center;
+                padding: 16px;
+            }
+            
+            .menu-item i {
+                margin-right: 0;
+            }
+            
+            .main-content {
+                margin-left: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 16px 0;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading and Empty States */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--dark);
+            opacity: 0.7;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: var(--dark);
+            opacity: 0.6;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="#" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="logo-text">GREENPES BAKANG</div>
+                </a>
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">AF</div>
+                    <div class="user-details">
+                        <div class="user-name" id="userName">Ali Fahmi</div>
+                        <div class="user-points">
+                            <i class="fas fa-star"></i>
+                            <span id="userPoints">2,450</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="sidebar-menu">
+                <a href="#" class="menu-item active">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="menu-item" id="coursesLink">
+                    <i class="fas fa-book-open"></i>
+                    <span>Kelas</span>
+                </a>
+                <a href="#" class="menu-item" id="debatesLink">
+                    <i class="fas fa-comments"></i>
+                    <span>Forum Debat</span>
+                </a>
+                <a href="#" class="menu-item" id="aiLink">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Asisten</span>
+                </a>
+                <a href="#" class="menu-item" id="uploadsLink">
+                    <i class="fas fa-upload"></i>
+                    <span>Unggah Karya</span>
+                </a>
+                <a href="#" class="menu-item" id="profileLink">
+                    <i class="fas fa-user"></i>
+                    <span>Profil Saya</span>
+                </a>
+                <a href="#" class="menu-item" id="leaderboardLink">
+                    <i class="fas fa-trophy"></i>
+                    <span>Leaderboard</span>
+                </a>
+                <a href="#" class="menu-item" id="chatLink">
+                    <i class="fas fa-comment-dots"></i>
+                    <span>Chat Global</span>
+                </a>
+                <a href="#" class="menu-item" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Keluar</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <div class="container">
+                    <div class="header-content">
+                        <h1 class="page-title">Dashboard</h1>
+                        <div class="header-actions">
+                            <button class="btn btn-outline" id="notificationsBtn">
+                                <i class="fas fa-bell"></i>
+                            </button>
+                            <button class="btn btn-primary" id="newUploadBtn">
+                                <i class="fas fa-plus"></i>
+                                Unggah Karya
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="container">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-label">Kelas Aktif</div>
+                            <div class="stat-icon courses">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="activeCourses">3</div>
+                        <div class="stat-label">Sedang dipelajari</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-label">Debat Mendatang</div>
+                            <div class="stat-icon debate">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="upcomingDebates">2</div>
+                        <div class="stat-label">Jadwal minggu ini</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-label">Total Poin</div>
+                            <div class="stat-icon points">
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="totalPoints">2,450</div>
+                        <div class="stat-label">Peringkat #12</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-label">Karya Diunggah</div>
+                            <div class="stat-icon uploads">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="totalUploads">5</div>
+                        <div class="stat-label">Publik & pribadi</div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Grid -->
+                <div class="dashboard-grid">
+                    <div>
+                        <!-- Recent Activity -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Aktivitas Terbaru</h2>
+                                <a href="#" class="view-all">Lihat Semua</a>
+                            </div>
+                            <div class="activity-list" id="activityList">
+                                <div class="activity-item">
+                                    <div class="activity-icon courses">
+                                        <i class="fas fa-book-open"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Menyelesaikan modul "Logika Deduktif"</div>
+                                        <div class="activity-time">2 jam yang lalu</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon debate">
+                                        <i class="fas fa-comments"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Mendaftar debat "Teknologi vs Privasi"</div>
+                                        <div class="activity-time">5 jam yang lalu</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon upload">
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Mengunggah ebook "Etika Digital untuk Remaja"</div>
+                                        <div class="activity-time">1 hari yang lalu</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon courses">
+                                        <i class="fas fa-trophy"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Mendapatkan badge "Pemula Logika"</div>
+                                        <div class="activity-time">2 hari yang lalu</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Aksi Cepat</h2>
+                            </div>
+                            <div class="quick-actions">
+                                <div class="action-card" id="aiAssistantBtn">
+                                    <div class="action-icon ai">
+                                        <i class="fas fa-robot"></i>
+                                    </div>
+                                    <div class="action-title">AI Asisten</div>
+                                </div>
+                                <div class="action-card" id="uploadBtn">
+                                    <div class="action-icon upload">
+                                        <i class="fas fa-upload"></i>
+                                    </div>
+                                    <div class="action-title">Unggah Karya</div>
+                                </div>
+                                <div class="action-card" id="joinDebateBtn">
+                                    <div class="action-icon debate">
+                                        <i class="fas fa-comments"></i>
+                                    </div>
+                                    <div class="action-title">Gabung Debat</div>
+                                </div>
+                                <div class="action-card" id="exploreCoursesBtn">
+                                    <div class="action-icon course">
+                                        <i class="fas fa-book-open"></i>
+                                    </div>
+                                    <div class="action-title">Jelajahi Kelas</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <!-- Upcoming Debates -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Debat Mendatang</h2>
+                                <a href="#" class="view-all">Lihat Semua</a>
+                            </div>
+                            <div class="activity-list" id="upcomingDebatesList">
+                                <div class="activity-item">
+                                    <div class="activity-icon debate">
+                                        <i class="fas fa-calendar"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Media Sosial: Berkah atau Musibah?</div>
+                                        <div class="activity-time">Hari Ini, 14:00</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon debate">
+                                        <i class="fas fa-calendar"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Pendidikan Karakter vs Skill Teknis</div>
+                                        <div class="activity-time">Besok, 10:00</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Uploads -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Karya Terbaru</h2>
+                                <a href="#" class="view-all">Lihat Semua</a>
+                            </div>
+                            <div class="activity-list" id="recentUploadsList">
+                                <div class="activity-item">
+                                    <div class="activity-icon upload">
+                                        <i class="fas fa-file-pdf"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Etika Digital untuk Remaja</div>
+                                        <div class="activity-time">1 hari yang lalu</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon upload">
+                                        <i class="fas fa-video"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Tutorial Logika Deduktif</div>
+                                        <div class="activity-time">3 hari yang lalu</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Konstanta API URL
+        const API_BASE_URL = 'http://localhost:5000/api';
+        
+        // State management
+        let currentUser = null;
+        let currentToken = null;
+
+        // DOM Elements
+        const userAvatar = document.getElementById('userAvatar');
+        const userName = document.getElementById('userName');
+        const userPoints = document.getElementById('userPoints');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const aiAssistantBtn = document.getElementById('aiAssistantBtn');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const joinDebateBtn = document.getElementById('joinDebateBtn');
+        const exploreCoursesBtn = document.getElementById('exploreCoursesBtn');
+
+        // Initialize dashboard
+        function initDashboard() {
+            // Cek apakah user sudah login
+            const storedToken = localStorage.getItem('token');
+            const storedUser = localStorage.getItem('user');
+            
+            if (storedToken && storedUser) {
+                currentToken = storedToken;
+                currentUser = JSON.parse(storedUser);
+                updateUIWithUserData();
+            } else {
+                // Redirect ke halaman login jika belum login
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Update UI dengan data user
+        function updateUIWithUserData() {
+            if (currentUser) {
+                // Update avatar dengan inisial nama
+                const initials = currentUser.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                userAvatar.textContent = initials;
+                
+                userName.textContent = currentUser.name;
+                userPoints.textContent = currentUser.points.toLocaleString();
+                
+                // Update stats
+                document.getElementById('totalPoints').textContent = currentUser.points.toLocaleString();
+            }
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'index.html';
+        }
+
+        // Navigation functions
+        function navigateTo(section) {
+            // Ini bisa diimplementasikan untuk SPA atau redirect ke halaman lain
+            console.log('Navigating to:', section);
+            // Untuk demo, kita akan buka di tab baru
+            switch(section) {
+                case 'ai':
+                    window.open('ai-assistant.html', '_blank');
+                    break;
+                case 'upload':
+                    window.open('upload.html', '_blank');
+                    break;
+                case 'debates':
+                    window.open('debates.html', '_blank');
+                    break;
+                case 'courses':
+                    window.open('courses.html', '_blank');
+                    break;
+                default:
+                    alert(`Halaman ${section} belum tersedia`);
+            }
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            initDashboard();
+            
+            // Logout button
+            logoutBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (confirm('Apakah Anda yakin ingin keluar?')) {
+                    logout();
+                }
+            });
+            
+            // Navigation buttons
+            aiAssistantBtn.addEventListener('click', () => navigateTo('ai'));
+            uploadBtn.addEventListener('click', () => navigateTo('upload'));
+            joinDebateBtn.addEventListener('click', () => navigateTo('debates'));
+            exploreCoursesBtn.addEventListener('click', () => navigateTo('courses'));
+            
+            // Sidebar navigation
+            document.getElementById('aiLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                navigateTo('ai');
+            });
+            
+            document.getElementById('uploadsLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                navigateTo('upload');
+            });
+            
+            document.getElementById('debatesLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                navigateTo('debates');
+            });
+            
+            document.getElementById('coursesLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                navigateTo('courses');
+            });
+            
+            document.getElementById('profileLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('Halaman Profil belum tersedia');
+            });
+            
+            document.getElementById('leaderboardLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('Halaman Leaderboard belum tersedia');
+            });
+            
+            document.getElementById('chatLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('Halaman Chat Global belum tersedia');
+            });
+            
+            // New upload button
+            document.getElementById('newUploadBtn').addEventListener('click', () => {
+                navigateTo('upload');
+            });
+        });
+
+        // Mock data untuk demo
+        // Dalam implementasi nyata, ini akan diambil dari API backend
+        const mockData = {
+            activeCourses: 3,
+            upcomingDebates: 2,
+            totalUploads: 5
+        };
+
+        // Update mock data di UI
+        document.getElementById('activeCourses').textContent = mockData.activeCourses;
+        document.getElementById('upcomingDebates').textContent = mockData.upcomingDebates;
+        document.getElementById('totalUploads').textContent = mockData.totalUploads;
+    </script>
+</body>
+</html>
